@@ -1,18 +1,30 @@
-<h1>Portfolio Guardian</h1>
+<div class="chat">
+  <!-- <h1>Bot</h1> -->
 
-<ng-container *ngFor="let message of messages | async">
+  <div class="scrollable">
 
-  <div class="message" [ngClass]="{ 'from': message.sentBy === 'bot',
+    <ng-container *ngFor="let message of messages | async">
+
+      <div class="message" *ngIf="isTypeTextMessage(message)" [ngClass]="{ 'from': message.sentBy === 'bot',
                                     'to':   message.sentBy === 'user' }">
-    {{ message.content }}
+        {{ message.content }}
+      </div>
+
+    </ng-container>
+
+    <chat-suggestion *ngIf="isSuggestionAvailable()" [suggestions]="suggestions.content"
+      (autoReply)="autoReply($event)">
+    </chat-suggestion>
+
   </div>
 
-</ng-container>
+  <div class="chat-controls">
 
+    <label for="nameField">Your Message</label>
 
-<label for="nameField">Your Message</label>
+    <input [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text">
 
+    <button (click)="sendMessage()">Send</button>
 
-<input [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text">
-
-<button (click)="sendMessage()">Send</button>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+.suggestion-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.suggestion {
+  border-radius: 50px;
+  margin: 0 15px 10px;
+  padding: 3px 5px;
+  position: relative;
+  font-weight: bold;
+  background-color: #FFCF40;
+  color: #fff;
+  display: inline-block;
+  cursor: pointer;
+}

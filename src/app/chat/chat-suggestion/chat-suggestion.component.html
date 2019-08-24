@@ -1,0 +1,5 @@
+<div class="suggestion-container">
+  <div class="suggestion" *ngFor="let suggestion of suggestions; let i = index" (click)="suggestionSelected(i)">
+      {{ suggestion }}
+  </div>
+</div>
