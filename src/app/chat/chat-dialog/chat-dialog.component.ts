@@ -36,7 +36,7 @@ export class ChatDialogComponent implements OnInit {
     return message.constructor.name === 'TextMessage';
   }
 
-  isSuggestionAvailable(message): boolean {
+  isSuggestionAvailable(): boolean {
     if (this.suggestions && this.suggestions.content) {
       return this.suggestions.content.length > 0;
     }
