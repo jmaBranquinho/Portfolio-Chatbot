@@ -2,7 +2,7 @@ import { SuggestionCluster } from './../chat.service';
 import { Component, OnInit } from '@angular/core';
 import { ChatService, Message } from '../chat.service';
 import { Observable } from 'rxjs';
-import { scan } from 'rxjs/operators';
+import { scan, defaultIfEmpty, map } from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -12,6 +12,7 @@ import { scan } from 'rxjs/operators';
 })
 export class ChatDialogComponent implements OnInit {
 
+  firstInteraction: boolean;
   messages: Observable<Message[]>;
   formValue: string;
   suggestions: SuggestionCluster;
@@ -24,12 +25,16 @@ export class ChatDialogComponent implements OnInit {
   ngOnInit() {
     this.messages = this.chat.conversation.asObservable()
       .pipe(scan((acc, val) => acc.concat(val)));
+    this.firstInteraction = false;
   }
 
   sendMessage() {
-    this.suggestions = new SuggestionCluster([]);
-    this.chat.converse(this.formValue);
-    this.formValue = '';
+    if (this.formValue.length > 0) {
+      this.firstInteraction = true;
+      this.suggestions = new SuggestionCluster([]);
+      this.chat.converse(this.formValue);
+      this.formValue = '';
+    }
   }
 
   isTypeTextMessage(message): boolean {

@@ -3,6 +3,11 @@
 
   <div class="scrollable">
 
+    <div class="welcomeMessage" *ngIf="!firstInteraction">
+      <hr>
+      <h5>Write something down below and press enter</h5>
+    </div>
+
     <ng-container *ngFor="let message of messages | async">
 
       <div class="message" *ngIf="isTypeTextMessage(message)" [ngClass]="{ 'from': message.sentBy === 'bot',
